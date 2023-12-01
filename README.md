@@ -1,4 +1,4 @@
 # SMS_ICompari
 Prova
 Seconda prova di invio
-Suca minchia
+Vaffanculo Pezzo di merda
