@@ -1,4 +1,4 @@
-package com.example.casodistudio;
+package it.uniba.dib.esame;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.casodistudio", appContext.getPackageName());
+        assertEquals("it.uniba.dib.esame", appContext.getPackageName());
     }
 }

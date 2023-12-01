@@ -1,4 +1,4 @@
-package com.example.casodistudio;
+package it.uniba.dib.esame;
 
 import org.junit.Test;
 
