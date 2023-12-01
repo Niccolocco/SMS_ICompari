@@ -1,2 +1,2 @@
 # SMS_ICompari
-Liso è nero
+Liso è super nero
