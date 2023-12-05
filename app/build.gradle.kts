@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "it.uniba.dib.esame"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "it.uniba.dib.esame"
