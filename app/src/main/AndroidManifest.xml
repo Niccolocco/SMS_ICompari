@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Esame"
         tools:targetApi="31">
         <activity
+            android:name="Medico.Registrazionem"
+            android:exported="false" />
+        <activity
             android:name="Rifugiato.MainActivityRifugiato"
             android:exported="false" />
         <activity
