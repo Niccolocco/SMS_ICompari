@@ -18,10 +18,23 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import it.uniba.dib.esame.R;
+import it.uniba.dib.esame.databinding.ActivityMainBinding;
 
 public class Registrazioner extends AppCompatActivity {
+
+    ActivityMainBinding binding;
+    String nome, cognome, nazionalita, codiceFiscale, sesso, eta;
+
+    FirebaseDatabase db;
+
+    DatabaseReference reference;
+
+
+
     Button button;
     Button indietrologin;
     TextInputEditText editTextemail, editTextnome, editTextcognome, editTextdatadinascita, editTextpassword;
@@ -45,6 +58,8 @@ public class Registrazioner extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityMainBinding.inflate(getLayoutInflater()); // codice FireBase
+        setContentView(binding.getRoot()); // codice FireBase
         setContentView(R.layout.registrazioner);
         editTextemail = findViewById(R.id.Email);
         editTextcognome= findViewById(R.id.Cognome);
@@ -54,7 +69,7 @@ public class Registrazioner extends AppCompatActivity {
         button = findViewById(R.id.indietrologin);
         mAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressbar);
-        buttonreg= findViewById(R.id.buttonreg);
+        buttonreg = findViewById(R.id.buttonreg);
         indietrologin = findViewById(R.id.indietrologin);
         indietrologin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,29 +79,55 @@ public class Registrazioner extends AppCompatActivity {
                 finish();
             }
         });
-        buttonreg.setOnClickListener(new View.OnClickListener() {
+
+
+        binding.buttonreg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
+                /*
                 String email = String.valueOf(editTextemail.getText());
                 String cognome = String.valueOf(editTextcognome.getText());
                 String datadinascita = String.valueOf(editTextdatadinascita.getText());
                 String nome = String.valueOf(editTextnome.getText());
                 String password = String.valueOf(editTextpassword.getText());
+                */
+
+                String password = String.valueOf(editTextpassword.getText());
+                String email = String.valueOf(editTextemail.getText());
+
+                nome = binding.nome.getText(toString());
+                cognome = binding.cognome.getText(toString());
+                nazionalita = binding.nazionalita.getText(toString());
+                codiceFiscale = binding.codiceFiscale.getText(toString());
+                sesso = binding.sesso.getText(toString());
+                eta = binding.eta.getText(toString());
+
+
 
                 if(TextUtils.isEmpty(email)){
                     Toast.makeText(Registrazioner.this, "Enter mail", Toast.LENGTH_SHORT).show();
                 } if(TextUtils.isEmpty(password)){
                     Toast.makeText(Registrazioner.this, "Enter password", Toast.LENGTH_SHORT).show();
                 }
-                if(TextUtils.isEmpty(cognome)){
-                    Toast.makeText(Registrazioner.this, "Enter password", Toast.LENGTH_SHORT).show();
-                }
-                if(TextUtils.isEmpty(datadinascita)){
-                    Toast.makeText(Registrazioner.this, "Enter password", Toast.LENGTH_SHORT).show();
-                }
-                if(TextUtils.isEmpty(nome)){
-                    Toast.makeText(Registrazioner.this, "Enter password", Toast.LENGTH_SHORT).show();
+
+                if((!nome.isEmpty()) && (!cognome.isEmpty()) && (!nazionalita.isEmpty()) && (!codiceFiscale.isEmpty()) && (!sesso.isEmpty()) && (!eta.isEmpty())) {
+                    Rifugiato rifugiato = new Rifugiato(nome, cognome, nazionalita, codiceFiscale, sesso, eta);
+                    db = FirebaseDatabase.getInstance();
+                    reference = db.getReference("Rifugiato");
+                    reference.child(nome).setValue(rifugiato).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            binding.nome.setText("");
+                            binding.cognome.setText("");
+                            binding.nazionalita.setText("");
+                            binding.codiceFiscale.setText("");
+                            binding.sesso.setText("");
+                            binding.eta.setText("");
+
+                            Toast.makeText(Registrazioner.this, "Registrazione aggiornata", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
 
                 mAuth.createUserWithEmailAndPassword(email, password)

@@ -1,18 +1,16 @@
 package Rifugiato;
 
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 public class Rifugiato {
 
     String Nome;
     String Cognome;
-    int Età;
+    String Età;
     String Nazionalità;
     String CodiceFiscale;
     String Sesso;
 
 
-    public Rifugiato(String nome, String cognome, int età, String nazionalità, String codiceFiscale, String sesso ) {
+    public Rifugiato(String nome, String cognome, String nazionalità, String codiceFiscale, String sesso, String età) {
         Nome = nome;
         Cognome = cognome;
         Età= età;
@@ -37,11 +35,11 @@ public class Rifugiato {
         Cognome = cognome;
     }
 
-    public int getEtà() {
+    public String getEtà() {
         return Età;
     }
 
-    public void setEtà(int età) {
+    public void setEtà(String età) {
         Età = età;
     }
 
